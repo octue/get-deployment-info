@@ -2,14 +2,6 @@ name: test-deployment-info
 
 on:
   push:
-  #    branches: main
-
-  workflow_dispatch:
-    inputs:
-      debug_enabled:
-        description: "Enable tmate debug"
-        type: boolean
-        default: "false"
 
 jobs:
   info:
