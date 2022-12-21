@@ -1,23 +1,23 @@
 #!/bin/sh -l
 
+GCP_PROJECT_NAME=$1
+GCP_PROJECT_NUMBER=$2
+GCP_REGION=$3
+GCP_RESOURCE_AFFIX=$4
+GCP_SERVICE_NAME=$5
+GCP_ENVIRONMENT=$6
+
 # Get package version.
 VERSION=$(poetry version -s)
 echo "version=$VERSION" >> $GITHUB_OUTPUT
 
 # Get GCP variables.
-GCP_PROJECT=$1
-echo "gcp_project=$GCP_PROJECT" >> $GITHUB_OUTPUT
-echo "gcp_project_number=$2" >> $GITHUB_OUTPUT
-
-GCP_REGION=$3
+echo "gcp_project_name=$GCP_PROJECT_NAME" >> $GITHUB_OUTPUT
+echo "gcp_project_number=$GCP_PROJECT_NUMBER" >> $GITHUB_OUTPUT
 echo "gcp_region=$GCP_REGION" >> $GITHUB_OUTPUT
-
-GCP_RESOURCE_AFFIX=$4
 echo "gcp_resource_affix=$GCP_RESOURCE_AFFIX" >> $GITHUB_OUTPUT
-echo "gcp_environment=$5" >> $GITHUB_OUTPUT
-
-GCP_SERVICE_NAME=$6
 echo "gcp_service_name=$GCP_SERVICE_NAME" >> $GITHUB_OUTPUT
+echo "gcp_environment=$GCP_ENVIRONMENT" >> $GITHUB_OUTPUT
 
 # Get slugified branch name, resource names, and docker image tags.
 echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
@@ -44,5 +44,5 @@ IMAGE_LATEST_TAG="$BRANCH_TAG_KEBAB-latest"
 echo "image_latest_tag=$IMAGE_LATEST_TAG" >> $GITHUB_OUTPUT
 
 # Set image artefact addresses.
-echo "image_version_artefact=$GCP_REGION-docker.pkg.dev/$GCP_PROJECT/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_VERSION_TAG" >> $GITHUB_OUTPUT
-echo "image_latest_artefact=$GCP_REGION-docker.pkg.dev/$GCP_PROJECT/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_LATEST_TAG" >> $GITHUB_OUTPUT
+echo "image_version_artefact=$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_NAME/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_VERSION_TAG" >> $GITHUB_OUTPUT
+echo "image_latest_artefact=$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_NAME/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_LATEST_TAG" >> $GITHUB_OUTPUT

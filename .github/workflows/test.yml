@@ -35,8 +35,8 @@ jobs:
           gcp_project_number: 1234
           gcp_region: europe-west1
           gcp_resource_affix: test
-          gcp_environment: main
           gcp_service_name: my-test-service
+          gcp_environment: main
 
       - name: Print outputs
         run: |
