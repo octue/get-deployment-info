@@ -21,7 +21,7 @@ inputs:
     description: ''
     required: false
     default: main
-  gcp_service:
+  gcp_service_name:
     description: ''
     required: true
 

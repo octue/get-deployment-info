@@ -14,8 +14,8 @@ GCP_RESOURCE_AFFIX=$4
 echo "gcp_resource_affix=$GCP_RESOURCE_AFFIX" >> $GITHUB_OUTPUT
 echo "gcp_environment=$5" >> $GITHUB_OUTPUT
 
-GCP_SERVICE=$6
-echo "gcp_service=$GCP_SERVICE" >> $GITHUB_OUTPUT
+GCP_SERVICE_NAME=$6
+echo "gcp_service_name=$GCP_SERVICE_NAME" >> $GITHUB_OUTPUT
 
 # Get slugified branch name, resource names, and docker image tags.
 echo "short_sha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
@@ -42,5 +42,5 @@ IMAGE_LATEST_TAG="$BRANCH_TAG_KEBAB-latest"
 echo "image_latest_tag=$IMAGE_LATEST_TAG" >> $GITHUB_OUTPUT
 
 # Set image artefact addresses.
-echo "image_version_artefact=$GCP_REGION-docker.pkg.dev/$GCP_PROJECT/$GCP_RESOURCE_AFFIX/$GCP_SERVICE:$IMAGE_VERSION_TAG" >> $GITHUB_OUTPUT
-echo "image_latest_artefact=$GCP_REGION-docker.pkg.dev/$$GCP_PROJECT/$GCP_RESOURCE_AFFIX/$GCP_SERVICE:$IMAGE_LATEST_TAG" >> $GITHUB_OUTPUT
+echo "image_version_artefact=$GCP_REGION-docker.pkg.dev/$GCP_PROJECT/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_VERSION_TAG" >> $GITHUB_OUTPUT
+echo "image_latest_artefact=$GCP_REGION-docker.pkg.dev/$$GCP_PROJECT/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_LATEST_TAG" >> $GITHUB_OUTPUT
