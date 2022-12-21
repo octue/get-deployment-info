@@ -28,8 +28,15 @@ jobs:
 #        uses: snok/install-poetry@v1
 
       - name: Get deployment info
-        uses: ./
         id: get-deployment-info
+        uses: ./
+        with:
+          gcp_project_name: test-project
+          gcp_project_number: 1234
+          gcp_region: europe-west1
+          gcp_resource_affix: test
+          gcp_environment: main
+          gcp_service_name: my-test-service
 
       - name: Print outputs
         run: |
