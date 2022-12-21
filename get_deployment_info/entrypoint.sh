@@ -45,4 +45,4 @@ echo "image_latest_tag=$IMAGE_LATEST_TAG" >> $GITHUB_OUTPUT
 
 # Set image artefact addresses.
 echo "image_version_artefact=$GCP_REGION-docker.pkg.dev/$GCP_PROJECT/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_VERSION_TAG" >> $GITHUB_OUTPUT
-echo "image_latest_artefact=$GCP_REGION-docker.pkg.dev/$$GCP_PROJECT/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_LATEST_TAG" >> $GITHUB_OUTPUT
+echo "image_latest_artefact=$GCP_REGION-docker.pkg.dev/$GCP_PROJECT/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_LATEST_TAG" >> $GITHUB_OUTPUT
