@@ -6,19 +6,19 @@ author: "cortadocodes"
 #  color: green
 inputs:
   gcp_project_name:
-    description: ""
+    description: "The name of the Google Cloud project being deployed to."
     required: true
   gcp_project_number:
-    description: ""
+    description: "The number of the Google Cloud project being deployed to."
     required: true
   gcp_region:
-    description: ""
+    description: "The Google Cloud region being deployed to."
     required: true
   gcp_resource_affix:
     description: ""
     required: true
   gcp_service_name:
-    description: ""
+    description: "The name of the service being deployed."
     required: true
   gcp_environment:
     description: ""
@@ -27,21 +27,21 @@ inputs:
 
 outputs:
   branch_tag_kebab:
-    description: ""
+    description: "The tag or branch name in kebab case."
   branch_tag_screaming:
-    description: ""
+    description: "The tag or branch name in screaming snake case."
   image_latest_artefact:
-    description: ""
+    description: "The artefact URI for the latest docker image."
   image_latest_tag:
-    description: ""
+    description: "The tag of the latest docker image."
   image_version_artefact:
-    description: ""
+    description:  "The artefact URI for the docker image for the version to deploy."
   image_version_tag:
-    description: ""
+    description: "The tag of the docker image for the version."
   short_sha:
-    description: ""
+    description: "The short SHA of the HEAD commit being deployed."
   version_slug:
-    description: ""
+    description: "The slugified version."
   gcp_environment:
     description: ""
   gcp_project_name:
@@ -55,7 +55,7 @@ outputs:
   gcp_service:
     description: ""
   version:
-    description: ""
+    description: "The version being deployed."
 
 runs:
   using: "docker"
