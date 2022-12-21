@@ -1,70 +1,70 @@
-name: 'Get deployment information'
+name: "Get deployment information"
 description: "Get the information required to build and deploy an Octue service."
-author: 'cortadocodes'
+author: "cortadocodes"
 #branding:
 #  icon: git-pull-request
 #  color: green
 inputs:
   gcp_project_name:
-    description: ''
+    description: ""
     required: true
   gcp_project_number:
-    description: ''
+    description: ""
     required: true
   gcp_region:
-    description: ''
+    description: ""
     required: true
   gcp_resource_affix:
-    description: ''
+    description: ""
     required: true
   gcp_service_name:
-    description: ''
+    description: ""
     required: true
   gcp_environment:
-    description: ''
+    description: ""
     required: false
     default: main
 
 outputs:
   branch_tag_kebab:
-    description: ''
+    description: ""
   branch_tag_screaming:
-    description: ''
+    description: ""
   image_latest_artefact:
-    description: ''
+    description: ""
   image_latest_tag:
-    description: ''
+    description: ""
   image_version_artefact:
-    description: ''
+    description: ""
   image_version_tag:
-    description: ''
+    description: ""
   short_sha:
-    description: ''
+    description: ""
   version_slug:
-    description: ''
+    description: ""
   gcp_environment:
-    description: ''
+    description: ""
   gcp_project_name:
-    description: ''
+    description: ""
   gcp_project_number:
-    description: ''
+    description: ""
   gcp_region:
-    description: ''
+    description: ""
   gcp_resource_affix:
-    description: ''
+    description: ""
   gcp_service:
-    description: ''
+    description: ""
   version:
-    description: ''
+    description: ""
 
 runs:
-   using: 'docker'
-#   image: 'docker://octue/get-deployment-info:0.1.0'
-   image: './Dockerfile'
-   args:
-     - ${{ inputs.gcp_project_name }}
-     - ${{ inputs.gcp_project_number }}
-     - ${{ inputs.gcp_region }}
-     - ${{ inputs.gcp_resource_affix }}
-     - ${{ inputs.gcp_service_name }}
-     - ${{ inputs.gcp_environment }}
+  using: "docker"
+  #   image: 'docker://octue/get-deployment-info:0.1.0'
+  image: "./Dockerfile"
+  args:
+    - ${{ inputs.gcp_project_name }}
+    - ${{ inputs.gcp_project_number }}
+    - ${{ inputs.gcp_region }}
+    - ${{ inputs.gcp_resource_affix }}
+    - ${{ inputs.gcp_service_name }}
+    - ${{ inputs.gcp_environment }}
