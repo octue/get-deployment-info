@@ -1,0 +1,70 @@
+name: 'Get deployment information'
+description: "Get the information required to build and deploy an Octue service."
+author: 'cortadocodes'
+#branding:
+#  icon: git-pull-request
+#  color: green
+inputs:
+  gcp_project_name:
+    description: ''
+    required: true
+  gcp_project_number:
+    description: ''
+    required: true
+  gcp_region:
+    description: ''
+    required: true
+  gcp_resource_affix:
+    description: ''
+    required: true
+  gcp_environment:
+    description: ''
+    required: false
+    default: main
+  gcp_service:
+    description: ''
+    required: true
+
+outputs:
+  branch_tag_kebab:
+    description: ''
+  branch_tag_screaming:
+    description: ''
+  image_latest_artefact:
+    description: ''
+  image_latest_tag:
+    description: ''
+  image_version_artefact:
+    description: ''
+  image_version_tag:
+    description: ''
+  short_sha:
+    description: ''
+  version_slug:
+    description: ''
+  gcp_environment:
+    description: ''
+  gcp_project_name:
+    description: ''
+  gcp_project_number:
+    description: ''
+  gcp_region:
+    description: ''
+  gcp_resource_affix:
+    description: ''
+  gcp_service:
+    description: ''
+  version:
+    description: ''
+
+runs:
+   using: 'docker'
+#   image: 'docker://octue/get-deployment-info:0.1.0'
+   image: './Dockerfile'
+   args:
+     - ${{ inputs.gcp_project_name }}
+     - ${{ inputs.gcp_project_number }}
+     - ${{ inputs.gcp_region }}
+     - ${{ inputs.gcp_resource_affix }}
+     - ${{ inputs.gcp_environment }}
+     - ${{ inputs.gcp_service }}
