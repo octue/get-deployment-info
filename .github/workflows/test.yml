@@ -24,8 +24,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 #
-#      - name: Install poetry
-#        uses: snok/install-poetry@v1
+      - name: Install poetry
+        uses: snok/install-poetry@v1.3.3
 
       - name: Get deployment info
         id: get-deployment-info
