@@ -1,6 +1,6 @@
-FROM python:3.10.7-slim
+FROM alpine:3.17.0
 
-RUN apt-get update -y && apt-get install -y --fix-missing curl git && rm -rf /var/lib/apt/lists/*
+RUN apk update && apk add --no-cache curl git && rm -rf /var/cache/apk/*
 
 COPY get_deployment_info/entrypoint.sh /entrypoint.sh
 

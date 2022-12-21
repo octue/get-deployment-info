@@ -1,5 +1,6 @@
 #!/bin/sh -l
 
+# Get inputs.
 GCP_PROJECT_NAME=$1
 GCP_PROJECT_NUMBER=$2
 GCP_REGION=$3
