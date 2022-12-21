@@ -53,5 +53,5 @@ jobs:
           echo ${{ steps.get-deployment-info.outputs.gcp_project_number }}
           echo ${{ steps.get-deployment-info.outputs.gcp_region }}
           echo ${{ steps.get-deployment-info.outputs.gcp_resource_affix }}
-          echo ${{ steps.get-deployment-info.outputs.gcp_service }}
+          echo ${{ steps.get-deployment-info.outputs.gcp_service_name }}
           echo ${{ steps.get-deployment-info.outputs.version }}
