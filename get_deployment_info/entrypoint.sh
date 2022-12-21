@@ -1,5 +1,6 @@
 #!/bin/sh -l
 
+# Get inputs
 GCP_PROJECT_NAME=$1
 GCP_PROJECT_NUMBER=$2
 GCP_REGION=$3
@@ -8,7 +9,10 @@ GCP_SERVICE_NAME=$5
 GCP_ENVIRONMENT=$6
 
 # Get package version.
-VERSION=$(poetry version -s)
+if [ -f "pyproject.toml" ]; then VERSION=$(poetry version -s); \
+elif [ -f "setup.py" ]; then VERSION=$(python setup.py --version);
+fi
+
 echo "version=$VERSION" >> $GITHUB_OUTPUT
 
 # Get GCP variables.
