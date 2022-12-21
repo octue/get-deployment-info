@@ -1,4 +1,4 @@
-name: Test deployment info
+name: test-deployment-info
 
 on:
   push:
