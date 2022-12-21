@@ -1,3 +1,5 @@
+#!/bin/sh -l
+
 # Get package version.
 VERSION=$(poetry version -s)
 echo "version=$VERSION" >> $GITHUB_OUTPUT
