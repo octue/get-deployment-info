@@ -1,6 +1,6 @@
 FROM python:3.10.7-slim
 
-RUN apt-get update -y && apt-get install -y --fix-missing curl && rm -rf /var/lib/apt/lists/*
+RUN apt-get update -y && apt-get install -y --fix-missing curl git && rm -rf /var/lib/apt/lists/*
 
 # Install poetry.
 ENV POETRY_HOME=/root/.poetry
