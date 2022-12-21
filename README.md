@@ -35,7 +35,7 @@ steps:
       gcp_environment: main
 ```
 
-Here's an example of printing all the outputs:
+Outputs can be accessed in the usual way. For example, to print all the outputs:
 
 ```yaml
 - name: Print outputs
