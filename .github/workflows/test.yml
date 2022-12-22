@@ -52,16 +52,15 @@ jobs:
         id: get-package-version
         run: echo "PACKAGE_VERSION=$(poetry version -s)" >> $GITHUB_OUTPUT
 
-      - name: Slugify branch name
-        id: slugify
-        uses: eltimn/slugify-action@v1.5
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v4
 
       - uses: nick-fields/assert-action@v1
         with:
-          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{steps.slugify.outputs.branch}}-latest
+          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{ env.GITHUB_REF_SLUG }}-latest
           actual: ${{ steps.get-deployment-info.outputs.image_latest_artefact }}
 
       - uses: nick-fields/assert-action@v1
         with:
-          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{steps.slugify.outputs.branch}}-${{ steps.get-package-version.outputs.PACKAGE_VERSION }}
+          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{ env.GITHUB_REF_SLUG }}-${{ steps.get-package-version.outputs.PACKAGE_VERSION }}
           actual: ${{ steps.get-deployment-info.outputs.image_version_artefact }}
