@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  info:
+  test-action:
     runs-on: ubuntu-latest
 
     timeout-minutes: 5
@@ -104,5 +104,5 @@ jobs:
       - name: Check `version`
         uses: nick-fields/assert-action@v1
         with:
-          expected: unreleased
-          actual: ${{ steps.get-package-version.outputs.PACKAGE_VERSION }}
+          expected: ${{ steps.get-package-version.outputs.PACKAGE_VERSION }}
+          actual: ${{ steps.get-deployment-info.outputs.version }}
