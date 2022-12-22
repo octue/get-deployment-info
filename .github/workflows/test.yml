@@ -52,6 +52,10 @@ jobs:
         id: get-package-version
         run: echo "PACKAGE_VERSION=$(poetry version -s)" >> $GITHUB_OUTPUT
 
+      - name: Get short SHA
+        id: get-short-sha
+        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
       - name: Inject slug/short variables
         uses: rlespinasse/github-slug-action@v4
 
@@ -88,7 +92,7 @@ jobs:
       - name: Check `short_sha`
         uses: nick-fields/assert-action@v1
         with:
-          expected: ${{ env.GITHUB_SHA::7 }}
+          expected: ${{ steps.get-short-sha.outputs.SHORT_SHA }}
           actual: ${{ steps.get-deployment-info.outputs.short_sha }}
 
       - name: Check `version_slug`
