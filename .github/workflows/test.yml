@@ -1,0 +1,49 @@
+name: test-deployment-info
+
+on:
+  push:
+
+jobs:
+  info:
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 5
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install poetry
+        uses: snok/install-poetry@v1.3.3
+
+      - name: Get deployment info
+        id: get-deployment-info
+        uses: ./
+        with:
+          gcp_project_name: test-project
+          gcp_project_number: 1234
+          gcp_region: europe-west1
+          gcp_resource_affix: test
+          gcp_service_name: my-test-service
+          gcp_environment: main
+
+      - name: Print outputs
+        run: |
+          echo ${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
+          echo ${{ steps.get-deployment-info.outputs.branch_tag_screaming }}
+          echo ${{ steps.get-deployment-info.outputs.image_latest_artefact }}
+          echo ${{ steps.get-deployment-info.outputs.image_latest_tag }}
+          echo ${{ steps.get-deployment-info.outputs.image_version_artefact }}
+          echo ${{ steps.get-deployment-info.outputs.image_version_tag }}
+          echo ${{ steps.get-deployment-info.outputs.short_sha }}
+          echo ${{ steps.get-deployment-info.outputs.version_slug }}
+          echo ${{ steps.get-deployment-info.outputs.gcp_environment }}
+          echo ${{ steps.get-deployment-info.outputs.gcp_project_name }}
+          echo ${{ steps.get-deployment-info.outputs.gcp_project_number }}
+          echo ${{ steps.get-deployment-info.outputs.gcp_region }}
+          echo ${{ steps.get-deployment-info.outputs.gcp_resource_affix }}
+          echo ${{ steps.get-deployment-info.outputs.gcp_service_name }}
+          echo ${{ steps.get-deployment-info.outputs.version }}

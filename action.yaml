@@ -1,70 +1,69 @@
-name: 'Get deployment information'
+name: "Get deployment information"
 description: "Get the information required to build and deploy an Octue service."
-author: 'cortadocodes'
+author: "cortadocodes"
 #branding:
 #  icon: git-pull-request
 #  color: green
 inputs:
   gcp_project_name:
-    description: ''
+    description: "The name of the Google Cloud project being deployed to."
     required: true
   gcp_project_number:
-    description: ''
+    description: "The number of the Google Cloud project being deployed to."
     required: true
   gcp_region:
-    description: ''
+    description: "The Google Cloud region being deployed to."
     required: true
   gcp_resource_affix:
-    description: ''
+    description: ""
+    required: true
+  gcp_service_name:
+    description: "The name of the service being deployed."
     required: true
   gcp_environment:
-    description: ''
+    description: ""
     required: false
     default: main
-  gcp_service:
-    description: ''
-    required: true
 
 outputs:
   branch_tag_kebab:
-    description: ''
+    description: "The tag or branch name in kebab case."
   branch_tag_screaming:
-    description: ''
+    description: "The tag or branch name in screaming snake case."
   image_latest_artefact:
-    description: ''
+    description: "The artefact URI for the latest docker image."
   image_latest_tag:
-    description: ''
+    description: "The tag of the latest docker image."
   image_version_artefact:
-    description: ''
+    description:  "The artefact URI for the docker image for the version to deploy."
   image_version_tag:
-    description: ''
+    description: "The tag of the docker image for the version."
   short_sha:
-    description: ''
+    description: "The short SHA of the HEAD commit being deployed."
   version_slug:
-    description: ''
+    description: "The slugified version."
   gcp_environment:
-    description: ''
+    description: ""
   gcp_project_name:
-    description: ''
+    description: ""
   gcp_project_number:
-    description: ''
+    description: ""
   gcp_region:
-    description: ''
+    description: ""
   gcp_resource_affix:
-    description: ''
+    description: ""
   gcp_service:
-    description: ''
+    description: ""
   version:
-    description: ''
+    description: "The version being deployed."
 
 runs:
-   using: 'docker'
-#   image: 'docker://octue/get-deployment-info:0.1.0'
-   image: './Dockerfile'
-   args:
-     - ${{ inputs.gcp_project_name }}
-     - ${{ inputs.gcp_project_number }}
-     - ${{ inputs.gcp_region }}
-     - ${{ inputs.gcp_resource_affix }}
-     - ${{ inputs.gcp_environment }}
-     - ${{ inputs.gcp_service }}
+  using: "docker"
+  image: "docker://octue/get-deployment-info:0.1.0"
+  args:
+    - ${{ inputs.gcp_project_name }}
+    - ${{ inputs.gcp_project_number }}
+    - ${{ inputs.gcp_region }}
+    - ${{ inputs.gcp_resource_affix }}
+    - ${{ inputs.gcp_service_name }}
+    - ${{ inputs.gcp_environment }}
