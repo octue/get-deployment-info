@@ -1,7 +1,9 @@
 name: test-deployment-info
 
 on:
-  push:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   info:
@@ -23,10 +25,10 @@ jobs:
         id: get-deployment-info
         uses: ./
         with:
-          gcp_project_name: test-project
+          gcp_project_name: my-test-project
           gcp_project_number: 1234
-          gcp_region: europe-west1
-          gcp_resource_affix: test
+          gcp_region: europe-west6
+          gcp_resource_affix: my-affix
           gcp_service_name: my-test-service
           gcp_environment: main
 
@@ -47,3 +49,8 @@ jobs:
           echo ${{ steps.get-deployment-info.outputs.gcp_resource_affix }}
           echo ${{ steps.get-deployment-info.outputs.gcp_service_name }}
           echo ${{ steps.get-deployment-info.outputs.version }}
+
+      - uses: nick-fields/assert-action@v1
+        with:
+          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:-latest
+          actual: ${{ steps.get-deployment-info.outputs.image_latest_artefact }}
