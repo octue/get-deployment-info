@@ -50,7 +50,16 @@ jobs:
           echo ${{ steps.get-deployment-info.outputs.gcp_service_name }}
           echo ${{ steps.get-deployment-info.outputs.version }}
 
+      - name: Get package version
+        id: get-package-version
+        run: echo "PACKAGE_VERSION=$(poetry version -s)" >> $GITHUB_OUTPUT
+
       - uses: nick-fields/assert-action@v1
         with:
           expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:-latest
           actual: ${{ steps.get-deployment-info.outputs.image_latest_artefact }}
+
+      - uses: nick-fields/assert-action@v1
+        with:
+          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{ steps.get-package-version.outputs.PACKAGE_VERSION }}
+          actual: ${{ steps.get-deployment-info.outputs.image_version_artefact }}
