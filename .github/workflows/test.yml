@@ -1,3 +1,4 @@
+# This workflow tests the `octue/get-deployment-info` GitHub action.
 name: test-deployment-info
 
 on:
