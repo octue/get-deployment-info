@@ -1,19 +1,16 @@
+# This workflow tests the `octue/get-deployment-info` GitHub action.
 name: test-deployment-info
 
 on:
-  pull_request:
-    branches:
-      - main
+  push:
 
 jobs:
-  info:
+  test-action:
+    if: "!contains(github.event.head_commit.message, 'skipci')"
     runs-on: ubuntu-latest
-
     timeout-minutes: 5
-
     permissions:
       contents: read
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -50,7 +47,61 @@ jobs:
           echo ${{ steps.get-deployment-info.outputs.gcp_service_name }}
           echo ${{ steps.get-deployment-info.outputs.version }}
 
-      - uses: nick-fields/assert-action@v1
+      - name: Get package version
+        id: get-package-version
+        run: echo "PACKAGE_VERSION=$(poetry version -s)" >> $GITHUB_OUTPUT
+
+      - name: Get short SHA
+        id: get-short-sha
+        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v4
+
+      - name: Check `branch_tag_kebab`
+        uses: nick-fields/assert-action@v1
         with:
-          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:-latest
+          expected: ${{ env.GITHUB_REF_SLUG }}
+          actual: ${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
+
+      - name: Check `image_latest_artefact`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{ env.GITHUB_REF_SLUG }}-latest
           actual: ${{ steps.get-deployment-info.outputs.image_latest_artefact }}
+
+      - name: Check `image_latest_tag`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: ${{ env.GITHUB_REF_SLUG }}-latest
+          actual: ${{ steps.get-deployment-info.outputs.image_latest_tag }}
+
+      - name: Check `image_version_artefact`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{ env.GITHUB_REF_SLUG }}-unreleased
+          actual: ${{ steps.get-deployment-info.outputs.image_version_artefact }}
+
+      - name: Check `image_version_tag`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: ${{ env.GITHUB_REF_SLUG }}-unreleased
+          actual: ${{ steps.get-deployment-info.outputs.image_version_tag }}
+
+      - name: Check `short_sha`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: ${{ steps.get-short-sha.outputs.SHORT_SHA }}
+          actual: ${{ steps.get-deployment-info.outputs.short_sha }}
+
+      - name: Check `version_slug`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: unreleased
+          actual: ${{ steps.get-deployment-info.outputs.version_slug }}
+
+      - name: Check `version`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: ${{ steps.get-package-version.outputs.PACKAGE_VERSION }}
+          actual: ${{ steps.get-deployment-info.outputs.version }}
