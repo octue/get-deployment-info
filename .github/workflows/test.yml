@@ -55,12 +55,50 @@ jobs:
       - name: Inject slug/short variables
         uses: rlespinasse/github-slug-action@v4
 
-      - uses: nick-fields/assert-action@v1
+      - name: Check `branch_tag_kebab`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: ${{ env.GITHUB_REF_SLUG }}
+          actual: ${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
+
+      - name: Check `image_latest_artefact`
+        uses: nick-fields/assert-action@v1
         with:
           expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{ env.GITHUB_REF_SLUG }}-latest
           actual: ${{ steps.get-deployment-info.outputs.image_latest_artefact }}
 
-      - uses: nick-fields/assert-action@v1
+      - name: Check `image_latest_tag`
+        uses: nick-fields/assert-action@v1
         with:
-          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{ env.GITHUB_REF_SLUG }}-${{ steps.get-package-version.outputs.PACKAGE_VERSION }}
+          expected: ${{ env.GITHUB_REF_SLUG }}-latest
+          actual: ${{ steps.get-deployment-info.outputs.image_latest_tag }}
+
+      - name: Check `image_version_artefact`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{ env.GITHUB_REF_SLUG }}-unreleased
           actual: ${{ steps.get-deployment-info.outputs.image_version_artefact }}
+
+      - name: Check `image_version_tag`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: ${{ env.GITHUB_REF_SLUG }}-unreleased
+          actual: ${{ steps.get-deployment-info.outputs.image_version_tag }}
+
+      - name: Check `short_sha`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: ${{ env.GITHUB_SHA::7 }}
+          actual: ${{ steps.get-deployment-info.outputs.short_sha }}
+
+      - name: Check `version_slug`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: unreleased
+          actual: ${{ steps.get-deployment-info.outputs.version_slug }}
+
+      - name: Check `version`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: unreleased
+          actual: ${{ steps.get-package-version.outputs.PACKAGE_VERSION }}
