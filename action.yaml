@@ -1,9 +1,9 @@
 name: "Get deployment information"
 description: "Get the information required to build and deploy an Octue service."
 author: "cortadocodes"
-#branding:
-#  icon: git-pull-request
-#  color: green
+branding:
+  icon: cloud
+  color: red
 inputs:
   gcp_project_name:
     description: "The name of the Google Cloud project being deployed to."
