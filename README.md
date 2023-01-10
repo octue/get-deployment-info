@@ -25,7 +25,7 @@ steps:
 
   - name: Get deployment info
     id: get-deployment-info
-    uses: octue/get-deployment-info
+    uses: octue/get-deployment-info@0.1.2
     with:
       gcp_project_name: test-project
       gcp_project_number: 1234
@@ -56,3 +56,6 @@ Outputs can be accessed in the usual way. For example, to print all the outputs:
     echo ${{ steps.get-deployment-info.outputs.gcp_service_name }}
     echo ${{ steps.get-deployment-info.outputs.version }}
 ```
+
+Note: there's no need to print the outputs for debugging in practice - the action prints them to `stdout` for this very
+purpose.
