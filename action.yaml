@@ -1,9 +1,9 @@
 name: "Get deployment information"
 description: "Get the information required to build and deploy an Octue service."
 author: "cortadocodes"
-#branding:
-#  icon: git-pull-request
-#  color: green
+branding:
+  icon: cloud
+  color: red
 inputs:
   gcp_project_name:
     description: "The name of the Google Cloud project being deployed to."
@@ -15,13 +15,13 @@ inputs:
     description: "The Google Cloud region being deployed to."
     required: true
   gcp_resource_affix:
-    description: ""
+    description: "A label to affix to the names of the resources created during deployment. This helps avoid confusion about what resources belong to what applications and aids cleanup of old resources."
     required: true
   gcp_service_name:
     description: "The name of the service being deployed."
     required: true
   gcp_environment:
-    description: ""
+    description: "The environment in Google Cloud the service is being deployed into e.g. 'staging' or 'production'."
     required: false
     default: main
 
@@ -40,26 +40,26 @@ outputs:
     description: "The tag of the docker image for the version."
   short_sha:
     description: "The short SHA of the HEAD commit being deployed."
-  version_slug:
-    description: "The slugified version."
-  gcp_environment:
-    description: ""
-  gcp_project_name:
-    description: ""
-  gcp_project_number:
-    description: ""
-  gcp_region:
-    description: ""
-  gcp_resource_affix:
-    description: ""
-  gcp_service:
-    description: ""
   version:
     description: "The version being deployed."
+  version_slug:
+    description: "The slugified version."
+  gcp_project_name:
+    description: "The name of the Google Cloud project being deployed to."
+  gcp_project_number:
+    description: "The number of the Google Cloud project being deployed to."
+  gcp_region:
+    description: "The Google Cloud region being deployed to."
+  gcp_resource_affix:
+    description: "A label to affix to the names of the resources created during deployment. This helps avoid confusion about what resources belong to what applications and aids cleanup of old resources."
+  gcp_service_name:
+    description: "The name of the service being deployed."
+  gcp_environment:
+    description: "The environment in Google Cloud the service is being deployed into e.g. 'staging' or 'production'."
 
 runs:
   using: "docker"
-  image: "docker://octue/get-deployment-info:0.1.0"
+  image: "docker://octue/get-deployment-info:0.1.2"
   args:
     - ${{ inputs.gcp_project_name }}
     - ${{ inputs.gcp_project_number }}
