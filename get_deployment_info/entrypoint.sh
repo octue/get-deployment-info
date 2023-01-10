@@ -55,7 +55,8 @@ echo "image_version_artefact=$IMAGE_VERSION_ARTEFACT" >> $GITHUB_OUTPUT
 IMAGE_LATEST_ARTEFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_NAME/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_LATEST_TAG"
 echo "image_latest_artefact=$IMAGE_LATEST_ARTEFACT" >> $GITHUB_OUTPUT
 
-# Echo the outputs to stdout to aid debugging if necessary.
+# Echo the outputs to stdout to aid debugging.
+echo ""
 echo "OUTPUTS"
 echo "======="
 echo "branch_tag_kebab: $BRANCH_TAG_KEBAB"
@@ -67,3 +68,9 @@ echo "image_version_tag: $IMAGE_VERSION_TAG"
 echo "short_sha: $SHORT_SHA"
 echo "version_slug: $VERSION_SLUG"
 echo "version: $VERSION"
+echo "gcp_project_name: $GCP_PROJECT_NAME"
+echo "gcp_project_number: $GCP_PROJECT_NUMBER"
+echo "gcp_region: $GCP_REGION"
+echo "gcp_resource_affix: $GCP_RESOURCE_AFFIX"
+echo "gcp_service_name: $GCP_SERVICE_NAME"
+echo "gcp_environment: $GCP_ENVIRONMENT"
