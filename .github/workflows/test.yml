@@ -46,11 +46,11 @@ jobs:
           expected: ${{ env.GITHUB_REF_SLUG }}
           actual: ${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
 
-      - name: Check `image_latest_artefact`
+      - name: Check `image_latest_artifact`
         uses: nick-fields/assert-action@v1
         with:
           expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{ env.GITHUB_REF_SLUG }}-latest
-          actual: ${{ steps.get-deployment-info.outputs.image_latest_artefact }}
+          actual: ${{ steps.get-deployment-info.outputs.image_latest_artifact }}
 
       - name: Check `image_latest_tag`
         uses: nick-fields/assert-action@v1
@@ -58,11 +58,11 @@ jobs:
           expected: ${{ env.GITHUB_REF_SLUG }}-latest
           actual: ${{ steps.get-deployment-info.outputs.image_latest_tag }}
 
-      - name: Check `image_version_artefact`
+      - name: Check `image_version_artifact`
         uses: nick-fields/assert-action@v1
         with:
           expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{ env.GITHUB_REF_SLUG }}-unreleased
-          actual: ${{ steps.get-deployment-info.outputs.image_version_artefact }}
+          actual: ${{ steps.get-deployment-info.outputs.image_version_artifact }}
 
       - name: Check `image_version_tag`
         uses: nick-fields/assert-action@v1

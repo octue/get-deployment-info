@@ -48,12 +48,12 @@ echo "image_version_tag=$IMAGE_VERSION_TAG" >> $GITHUB_OUTPUT
 IMAGE_LATEST_TAG="$BRANCH_TAG_KEBAB-latest"
 echo "image_latest_tag=$IMAGE_LATEST_TAG" >> $GITHUB_OUTPUT
 
-# Set image artefact addresses.
-IMAGE_VERSION_ARTEFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_NAME/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_VERSION_TAG"
-echo "image_version_artefact=$IMAGE_VERSION_ARTEFACT" >> $GITHUB_OUTPUT
+# Set image artifact addresses.
+IMAGE_VERSION_ARTIFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_NAME/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_VERSION_TAG"
+echo "image_version_artifact=$IMAGE_VERSION_ARTIFACT" >> $GITHUB_OUTPUT
 
-IMAGE_LATEST_ARTEFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_NAME/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_LATEST_TAG"
-echo "image_latest_artefact=$IMAGE_LATEST_ARTEFACT" >> $GITHUB_OUTPUT
+IMAGE_LATEST_ARTIFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_NAME/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_LATEST_TAG"
+echo "image_latest_artifact=$IMAGE_LATEST_ARTIFACT" >> $GITHUB_OUTPUT
 
 # Echo the outputs to stdout to aid debugging.
 echo ""
@@ -61,9 +61,9 @@ echo "OUTPUTS"
 echo "======="
 echo "- branch_tag_kebab: $BRANCH_TAG_KEBAB"
 echo "- branch_tag_screaming: $BRANCH_TAG_SCREAMING"
-echo "- image_latest_artefact: $IMAGE_LATEST_ARTEFACT"
+echo "- image_latest_artifact: $IMAGE_LATEST_ARTIFACT"
 echo "- image_latest_tag: $IMAGE_LATEST_TAG"
-echo "- image_version_artefact: $IMAGE_VERSION_ARTEFACT"
+echo "- image_version_artifact: $IMAGE_VERSION_ARTIFACT"
 echo "- image_version_tag: $IMAGE_VERSION_TAG"
 echo "- short_sha: $SHORT_SHA"
 echo "- version_slug: $VERSION_SLUG"
