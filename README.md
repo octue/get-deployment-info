@@ -42,9 +42,9 @@ Outputs can be accessed in the usual way. For example, to print all the outputs:
   run: |
     echo ${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
     echo ${{ steps.get-deployment-info.outputs.branch_tag_screaming }}
-    echo ${{ steps.get-deployment-info.outputs.image_latest_artefact }}
+    echo ${{ steps.get-deployment-info.outputs.image_latest_artifact }}
     echo ${{ steps.get-deployment-info.outputs.image_latest_tag }}
-    echo ${{ steps.get-deployment-info.outputs.image_version_artefact }}
+    echo ${{ steps.get-deployment-info.outputs.image_version_artifact }}
     echo ${{ steps.get-deployment-info.outputs.image_version_tag }}
     echo ${{ steps.get-deployment-info.outputs.short_sha }}
     echo ${{ steps.get-deployment-info.outputs.version_slug }}

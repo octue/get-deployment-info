@@ -30,12 +30,12 @@ outputs:
     description: "The tag or branch name in kebab case."
   branch_tag_screaming:
     description: "The tag or branch name in screaming snake case."
-  image_latest_artefact:
-    description: "The artefact URI for the latest docker image."
+  image_latest_artifact:
+    description: "The artifact URI for the latest docker image."
   image_latest_tag:
     description: "The tag of the latest docker image."
-  image_version_artefact:
-    description: "The artefact URI for the docker image for the version to deploy."
+  image_version_artifact:
+    description: "The artifact URI for the docker image for the version to deploy."
   image_version_tag:
     description: "The tag of the docker image for the version."
   short_sha:
