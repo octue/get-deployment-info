@@ -36,7 +36,7 @@ echo "branch_tag_screaming=$BRANCH_TAG_SCREAMING" >> $GITHUB_OUTPUT
 if [ "$BRANCH_TAG_KEBAB" = "main" ]; then
   TAG_VERSION=$VERSION
 else
-  TAG_VERSION="unreleased"
+  TAG_VERSION="$BRANCH_TAG_KEBAB"
 fi
 
 VERSION_SLUG=$(echo $TAG_VERSION | tr . -)
