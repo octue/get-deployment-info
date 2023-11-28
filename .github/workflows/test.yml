@@ -76,14 +76,26 @@ jobs:
           expected: ${{ steps.get-short-sha.outputs.SHORT_SHA }}
           actual: ${{ steps.get-deployment-info.outputs.short_sha }}
 
-      - name: Check `version_slug`
-        uses: nick-fields/assert-action@v1
-        with:
-          expected: unreleased
-          actual: ${{ steps.get-deployment-info.outputs.version_slug }}
-
       - name: Check `version`
         uses: nick-fields/assert-action@v1
         with:
           expected: ${{ steps.get-package-version.outputs.PACKAGE_VERSION }}
           actual: ${{ steps.get-deployment-info.outputs.version }}
+
+      - name: Check `version_slug`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: $(echo ${{ steps.get-package-version.outputs.PACKAGE_VERSION }} | tr . -)
+          actual: ${{ steps.get-deployment-info.outputs.version_slug }}
+
+      - name: Check `revision_tag`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: ${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
+          actual: ${{ steps.get-deployment-info.outputs.revision_tag }}
+
+      - name: Check `revision_tag_slug`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: ${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
+          actual: ${{ steps.get-deployment-info.outputs.revision_tag_slug }}
