@@ -31,7 +31,9 @@ jobs:
 
       - name: Get package version
         id: get-package-version
-        run: echo "PACKAGE_VERSION=$(poetry version -s)" >> $GITHUB_OUTPUT
+        run: |
+          echo "version=$(poetry version -s)" >> $GITHUB_OUTPUT
+          echo "version_slug=$(poetry version -s | tr . -)" >> $GITHUB_OUTPUT
 
       - name: Get short SHA
         id: get-short-sha
@@ -79,13 +81,13 @@ jobs:
       - name: Check `version`
         uses: nick-fields/assert-action@v1
         with:
-          expected: ${{ steps.get-package-version.outputs.PACKAGE_VERSION }}
+          expected: ${{ steps.get-package-version.outputs.version }}
           actual: ${{ steps.get-deployment-info.outputs.version }}
 
       - name: Check `version_slug`
         uses: nick-fields/assert-action@v1
         with:
-          expected: $(echo ${{ steps.get-package-version.outputs.PACKAGE_VERSION }} | tr . -)
+          expected: ${{ steps.get-package-version.outputs.version_slug }}
           actual: ${{ steps.get-deployment-info.outputs.version_slug }}
 
       - name: Check `revision_tag`
