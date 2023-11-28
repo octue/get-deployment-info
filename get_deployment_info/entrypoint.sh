@@ -15,6 +15,9 @@ fi
 
 echo "version=$VERSION" >> $GITHUB_OUTPUT
 
+VERSION_SLUG=$(echo $VERSION | tr . -)
+echo "version_slug=$VERSION_SLUG" >> $GITHUB_OUTPUT
+
 # Get GCP variables.
 echo "gcp_project_name=$GCP_PROJECT_NAME" >> $GITHUB_OUTPUT
 echo "gcp_project_number=$GCP_PROJECT_NUMBER" >> $GITHUB_OUTPUT
@@ -34,15 +37,17 @@ BRANCH_TAG_SCREAMING=$(echo $BRANCH_TAG_KEBAB | tr '[:lower:]' '[:upper:]'  | tr
 echo "branch_tag_screaming=$BRANCH_TAG_SCREAMING" >> $GITHUB_OUTPUT
 
 if [ "$BRANCH_TAG_KEBAB" = "main" ]; then
-  TAG_VERSION=$VERSION
+  REVISION_TAG=$VERSION
 else
-  TAG_VERSION="$BRANCH_TAG_KEBAB"
+  REVISION_TAG="$BRANCH_TAG_KEBAB"
 fi
 
-VERSION_SLUG=$(echo $TAG_VERSION | tr . -)
-echo "version_slug=$VERSION_SLUG" >> $GITHUB_OUTPUT
+echo "revision_tag=$REVISION_TAG" >> $GITHUB_OUTPUT
 
-IMAGE_VERSION_TAG="$BRANCH_TAG_KEBAB-$TAG_VERSION"
+REVISION_TAG_SLUG=$(echo $REVISION_TAG | tr . -)
+echo "revision_tag_slug=$REVISION_TAG_SLUG" >> $GITHUB_OUTPUT
+
+IMAGE_VERSION_TAG="$BRANCH_TAG_KEBAB-$REVISION_TAG"
 echo "image_version_tag=$IMAGE_VERSION_TAG" >> $GITHUB_OUTPUT
 
 IMAGE_LATEST_TAG="$BRANCH_TAG_KEBAB-latest"
@@ -66,8 +71,10 @@ echo "- image_latest_tag: $IMAGE_LATEST_TAG"
 echo "- image_version_artifact: $IMAGE_VERSION_ARTIFACT"
 echo "- image_version_tag: $IMAGE_VERSION_TAG"
 echo "- short_sha: $SHORT_SHA"
-echo "- version_slug: $VERSION_SLUG"
 echo "- version: $VERSION"
+echo "- version_slug: $VERSION_SLUG"
+echo "- tag_version: $REVISION_TAG"
+echo "- tag_version_slug: $REVISION_TAG_SLUG"
 echo "- gcp_project_name: $GCP_PROJECT_NAME"
 echo "- gcp_project_number: $GCP_PROJECT_NUMBER"
 echo "- gcp_region: $GCP_REGION"
