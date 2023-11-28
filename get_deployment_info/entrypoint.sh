@@ -1,7 +1,4 @@
 #!/bin/sh -l
-# Allow git operations in the current directory.
-sh -c "git config --global --add safe.directory /github/workspace"
-
 # Get inputs
 GCP_PROJECT_NAME=$1
 GCP_PROJECT_NUMBER=$2
