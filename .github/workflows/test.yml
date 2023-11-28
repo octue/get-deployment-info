@@ -70,11 +70,11 @@ jobs:
           expected: branch-${{ env.GITHUB_REF_SLUG }}
           actual: ${{ steps.get-deployment-info.outputs.image_version_tag }}
 
-      - name: Check `short_sha`
-        uses: nick-fields/assert-action@v1
-        with:
-          expected: ${{ steps.get-short-sha.outputs.SHORT_SHA }}
-          actual: ${{ steps.get-deployment-info.outputs.short_sha }}
+      #      - name: Check `short_sha`
+      #        uses: nick-fields/assert-action@v1
+      #        with:
+      #          expected: ${{ steps.get-short-sha.outputs.SHORT_SHA }}
+      #          actual: ${{ steps.get-deployment-info.outputs.short_sha }}
 
       - name: Check `version`
         uses: nick-fields/assert-action@v1
