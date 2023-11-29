@@ -3,6 +3,8 @@ name: test-deployment-info
 
 on:
   push:
+    branches-ignore:
+      - main
 
 jobs:
   test-action:
@@ -13,7 +15,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
 
       - name: Install poetry
         uses: snok/install-poetry@v1.3.3
@@ -31,7 +33,9 @@ jobs:
 
       - name: Get package version
         id: get-package-version
-        run: echo "PACKAGE_VERSION=$(poetry version -s)" >> $GITHUB_OUTPUT
+        run: |
+          echo "version=$(poetry version -s)" >> $GITHUB_OUTPUT
+          echo "version_slug=$(poetry version -s | tr . -)" >> $GITHUB_OUTPUT
 
       - name: Get short SHA
         id: get-short-sha
@@ -49,25 +53,25 @@ jobs:
       - name: Check `image_latest_artifact`
         uses: nick-fields/assert-action@v1
         with:
-          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{ env.GITHUB_REF_SLUG }}-latest
+          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:branch-${{ env.GITHUB_REF_SLUG }}-latest
           actual: ${{ steps.get-deployment-info.outputs.image_latest_artifact }}
 
       - name: Check `image_latest_tag`
         uses: nick-fields/assert-action@v1
         with:
-          expected: ${{ env.GITHUB_REF_SLUG }}-latest
+          expected: branch-${{ env.GITHUB_REF_SLUG }}-latest
           actual: ${{ steps.get-deployment-info.outputs.image_latest_tag }}
 
       - name: Check `image_version_artifact`
         uses: nick-fields/assert-action@v1
         with:
-          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:${{ env.GITHUB_REF_SLUG }}-unreleased
+          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:branch-${{ env.GITHUB_REF_SLUG }}
           actual: ${{ steps.get-deployment-info.outputs.image_version_artifact }}
 
       - name: Check `image_version_tag`
         uses: nick-fields/assert-action@v1
         with:
-          expected: ${{ env.GITHUB_REF_SLUG }}-unreleased
+          expected: branch-${{ env.GITHUB_REF_SLUG }}
           actual: ${{ steps.get-deployment-info.outputs.image_version_tag }}
 
       - name: Check `short_sha`
@@ -76,14 +80,26 @@ jobs:
           expected: ${{ steps.get-short-sha.outputs.SHORT_SHA }}
           actual: ${{ steps.get-deployment-info.outputs.short_sha }}
 
-      - name: Check `version_slug`
-        uses: nick-fields/assert-action@v1
-        with:
-          expected: unreleased
-          actual: ${{ steps.get-deployment-info.outputs.version_slug }}
-
       - name: Check `version`
         uses: nick-fields/assert-action@v1
         with:
-          expected: ${{ steps.get-package-version.outputs.PACKAGE_VERSION }}
+          expected: ${{ steps.get-package-version.outputs.version }}
           actual: ${{ steps.get-deployment-info.outputs.version }}
+
+      - name: Check `version_slug`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: ${{ steps.get-package-version.outputs.version_slug }}
+          actual: ${{ steps.get-deployment-info.outputs.version_slug }}
+
+      - name: Check `revision_tag`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: branch-${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
+          actual: ${{ steps.get-deployment-info.outputs.revision_tag }}
+
+      - name: Check `revision_tag_slug`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: branch-${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
+          actual: ${{ steps.get-deployment-info.outputs.revision_tag_slug }}

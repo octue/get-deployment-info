@@ -41,9 +41,13 @@ outputs:
   short_sha:
     description: "The short SHA of the HEAD commit being deployed."
   version:
-    description: "The version being deployed."
+    description: "The version in pyproject.toml or setup.py."
   version_slug:
-    description: "The slugified version."
+    description: "The version in pyproject.toml or setup.py (slugified)."
+  revision_tag:
+    description: "The revision tag to use for deployment (can be a branch name)."
+  revision_tag_slug:
+    description: "The revision tag to use for deployment (can be a branch name) (slugified)."
   gcp_project_name:
     description: "The name of the Google Cloud project being deployed to."
   gcp_project_number:
@@ -59,7 +63,7 @@ outputs:
 
 runs:
   using: "docker"
-  image: "docker://octue/get-deployment-info:0.1.3"
+  image: "docker://octue/get-deployment-info:0.2.0"
   args:
     - ${{ inputs.gcp_project_name }}
     - ${{ inputs.gcp_project_number }}
