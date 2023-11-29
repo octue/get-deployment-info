@@ -3,6 +3,8 @@ name: test-deployment-info
 
 on:
   push:
+    branches-ignore:
+      - main
 
 jobs:
   test-action:
