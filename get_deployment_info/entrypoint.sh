@@ -26,7 +26,7 @@ echo "gcp_service_name=$GCP_SERVICE_NAME" >> $GITHUB_OUTPUT
 echo "gcp_environment=$GCP_ENVIRONMENT" >> $GITHUB_OUTPUT
 
 # Get slugified branch name, resource names, and docker image tags.
-SHORT_SHA="$(git rev-parse --short HEAD)"
+SHORT_SHA="$(git config --global --add safe.directory /github/workspace && git rev-parse --short HEAD)"
 echo "short_sha=$SHORT_SHA" >> $GITHUB_OUTPUT
 
 BRANCH_TAG_KEBAB=$(echo ${GITHUB_REF#refs/heads/} | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z)
