@@ -8,4 +8,6 @@ COPY get_deployment_info/entrypoint.sh /entrypoint.sh
 
 RUN chmod +x entrypoint.sh
 
+RUN git config --global --add safe.directory '*'
+
 ENTRYPOINT ["/entrypoint.sh"]
