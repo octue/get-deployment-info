@@ -25,7 +25,7 @@ steps:
 
   - name: Get deployment info
     id: get-deployment-info
-    uses: octue/get-deployment-info@0.2.0
+    uses: octue/get-deployment-info@0.2.1
     with:
       gcp_project_name: test-project
       gcp_project_number: 1234

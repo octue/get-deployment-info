@@ -2,9 +2,7 @@
 name: test-deployment-info
 
 on:
-  push:
-    branches-ignore:
-      - main
+  pull_request:
 
 jobs:
   test-action:
@@ -47,31 +45,31 @@ jobs:
       - name: Check `branch_tag_kebab`
         uses: nick-fields/assert-action@v1
         with:
-          expected: ${{ env.GITHUB_REF_SLUG }}
+          expected: refs-pull-${{ github.event.number }}-merge
           actual: ${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
 
       - name: Check `image_latest_artifact`
         uses: nick-fields/assert-action@v1
         with:
-          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:branch-${{ env.GITHUB_REF_SLUG }}-latest
+          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:pull-${{ github.event.number }}-latest
           actual: ${{ steps.get-deployment-info.outputs.image_latest_artifact }}
 
       - name: Check `image_latest_tag`
         uses: nick-fields/assert-action@v1
         with:
-          expected: branch-${{ env.GITHUB_REF_SLUG }}-latest
+          expected: pull-${{ github.event.number }}-latest
           actual: ${{ steps.get-deployment-info.outputs.image_latest_tag }}
 
       - name: Check `image_version_artifact`
         uses: nick-fields/assert-action@v1
         with:
-          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:branch-${{ env.GITHUB_REF_SLUG }}
+          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:pull-${{ github.event.number }}
           actual: ${{ steps.get-deployment-info.outputs.image_version_artifact }}
 
       - name: Check `image_version_tag`
         uses: nick-fields/assert-action@v1
         with:
-          expected: branch-${{ env.GITHUB_REF_SLUG }}
+          expected: pull-${{ github.event.number }}
           actual: ${{ steps.get-deployment-info.outputs.image_version_tag }}
 
       - name: Check `short_sha`
@@ -95,11 +93,11 @@ jobs:
       - name: Check `revision_tag`
         uses: nick-fields/assert-action@v1
         with:
-          expected: branch-${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
+          expected: pull-${{ github.event.number }}
           actual: ${{ steps.get-deployment-info.outputs.revision_tag }}
 
       - name: Check `revision_tag_slug`
         uses: nick-fields/assert-action@v1
         with:
-          expected: branch-${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
+          expected: pull-${{ github.event.number }}
           actual: ${{ steps.get-deployment-info.outputs.revision_tag_slug }}
