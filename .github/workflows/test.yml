@@ -45,7 +45,7 @@ jobs:
       - name: Check `branch_tag_kebab`
         uses: nick-fields/assert-action@v1
         with:
-          expected: ${{ env.GITHUB_REF_SLUG }}
+          expected: refs-pull-${{ github.event.number }}-merge
           actual: ${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
 
       - name: Check `image_latest_artifact`
@@ -93,11 +93,11 @@ jobs:
       - name: Check `revision_tag`
         uses: nick-fields/assert-action@v1
         with:
-          expected: ${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
+          expected: pull-${{ github.event.number }}
           actual: ${{ steps.get-deployment-info.outputs.revision_tag }}
 
       - name: Check `revision_tag_slug`
         uses: nick-fields/assert-action@v1
         with:
-          expected: ${{ steps.get-deployment-info.outputs.branch_tag_kebab }}
+          expected: pull-${{ github.event.number }}
           actual: ${{ steps.get-deployment-info.outputs.revision_tag_slug }}
