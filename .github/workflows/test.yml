@@ -2,9 +2,7 @@
 name: test-deployment-info
 
 on:
-  push:
-    branches-ignore:
-      - main
+  pull_request:
 
 jobs:
   test-action:
