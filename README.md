@@ -69,8 +69,8 @@ Some of the outputs' values depend on whether the action is run on the `main` br
 ### Main branch deployments
 
 - `revision_tag` is `<version>`
-- `image_version_tag` is `<branch_tag_kebab>-<version>`
-- `image_latest_tag` is `<branch_tag_kebab>-latest`
+- `image_version_tag` is `main-<version>`
+- `image_latest_tag` is `main-latest`
 
 ### Non-main branch deployments
 
