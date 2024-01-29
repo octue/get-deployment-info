@@ -5,9 +5,48 @@ on:
   pull_request:
 
 jobs:
-  test-action:
+  get-package-version:
     if: "!contains(github.event.head_commit.message, 'skipci')"
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.get-package-version.outputs.version }}
+      version_slug: ${{ steps.get-package-version.outputs.version_slug }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Get package version
+        id: get-package-version
+        run: |
+          echo "version=$(poetry version -s)" >> $GITHUB_OUTPUT
+          echo "version_slug=$(poetry version -s | tr . -)" >> $GITHUB_OUTPUT
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: get-package-version
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Log in to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v3.1.1
+        with:
+          context: .
+          push: true
+          tags: octue/get-deployment-info:${{ needs.get-package-version.outputs.package_version }}
+
+  test-action:
+    runs-on: ubuntu-latest
+    needs: [get-package-version, docker]
     timeout-minutes: 5
     permissions:
       contents: read
@@ -28,12 +67,6 @@ jobs:
           gcp_resource_affix: my-affix
           gcp_service_name: my-test-service
           gcp_environment: main
-
-      - name: Get package version
-        id: get-package-version
-        run: |
-          echo "version=$(poetry version -s)" >> $GITHUB_OUTPUT
-          echo "version_slug=$(poetry version -s | tr . -)" >> $GITHUB_OUTPUT
 
       - name: Get short SHA
         id: get-short-sha
@@ -81,13 +114,13 @@ jobs:
       - name: Check `version`
         uses: nick-fields/assert-action@v1
         with:
-          expected: ${{ steps.get-package-version.outputs.version }}
+          expected: ${{ needs.get-package-version.outputs.version }}
           actual: ${{ steps.get-deployment-info.outputs.version }}
 
       - name: Check `version_slug`
         uses: nick-fields/assert-action@v1
         with:
-          expected: ${{ steps.get-package-version.outputs.version_slug }}
+          expected: ${{ needs.get-package-version.outputs.version_slug }}
           actual: ${{ steps.get-deployment-info.outputs.version_slug }}
 
       - name: Check `revision_tag`
