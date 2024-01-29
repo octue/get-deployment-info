@@ -77,6 +77,6 @@ Some of the outputs' values depend on whether the action is run on the `main` br
 The truncated branch name (first 12 characters) is used to ensure service names are short enough to be accepted by e.g.
 Cloud Run without having to restrict the length of branch names.
 
-- `revision_tag` is `pull-<truncated branch_tag_kebab>`
-- `image_version_tag` is `pull-<truncated branch_tag_kebab>`
-- `image_latest_tag` is `pull-<truncated branch_tag_kebab>-latest`
+- `revision_tag` is `<truncated branch_tag_kebab>`
+- `image_version_tag` is `<truncated branch_tag_kebab>`
+- `image_latest_tag` is `<truncated branch_tag_kebab>-latest`
