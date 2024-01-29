@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "get-deployment-info"
-version = "0.2.1"
+version = "0.2.2"
 description = "A Github Action that gets the information required to build and deploy an Octue service."
 authors = ["Marcus Lugg <marcus@octue.com>"]
 readme = "README.md"
