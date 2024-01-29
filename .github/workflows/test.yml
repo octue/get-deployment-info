@@ -90,7 +90,7 @@ jobs:
       - name: Check `image_latest_tag`
         uses: nick-fields/assert-action@v1
         with:
-          expected: pull-${{ github.event.number }}-latest
+          expected: refs-pull-${{ github.event.number }}-latest
           actual: ${{ steps.get-deployment-info.outputs.image_latest_tag }}
 
       - name: Check `image_version_artifact`
