@@ -18,6 +18,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.1
 
+      - name: Install poetry
+        uses: snok/install-poetry@v1.3.3
+
       - name: Get package version
         id: get-package-version
         run: |
@@ -53,9 +56,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
-
-      - name: Install poetry
-        uses: snok/install-poetry@v1.3.3
 
       - name: Get deployment info
         id: get-deployment-info
