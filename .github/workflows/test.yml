@@ -41,11 +41,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v3.1.1
+        uses: docker/build-push-action@v5.1.0
         with:
           context: .
           push: true
-          tags: octue/get-deployment-info:${{ needs.get-package-version.outputs.package_version }}
+          tags: octue/get-deployment-info:${{ needs.get-package-version.outputs.version }}
 
   test-action:
     runs-on: ubuntu-latest
