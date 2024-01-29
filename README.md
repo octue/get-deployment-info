@@ -4,8 +4,8 @@
 
 # Get deployment info
 
-A GitHub action that gets the information needed to build and deploy an Octue service to the cloud. This information is
-extracted and/or generated from:
+A GitHub action that gets the information needed to build and deploy an Octue service to the cloud from a
+main/production branch or a non-main/development branch. The required information is extracted and/or generated from:
 
 - The action inputs
 - `git`
@@ -25,7 +25,7 @@ steps:
 
   - name: Get deployment info
     id: get-deployment-info
-    uses: octue/get-deployment-info@0.2.1
+    uses: octue/get-deployment-info@0.2.2
     with:
       gcp_project_name: test-project
       gcp_project_number: 1234
@@ -48,6 +48,8 @@ Outputs can be accessed in the usual way. For example, to print all the outputs:
     echo ${{ steps.get-deployment-info.outputs.image_version_tag }}
     echo ${{ steps.get-deployment-info.outputs.short_sha }}
     echo ${{ steps.get-deployment-info.outputs.version_slug }}
+    echo ${{ steps.get-deployment-info.outputs.revision_tag }}
+    echo ${{ steps.get-deployment-info.outputs.revision_tag_slug }}
     echo ${{ steps.get-deployment-info.outputs.gcp_environment }}
     echo ${{ steps.get-deployment-info.outputs.gcp_project_name }}
     echo ${{ steps.get-deployment-info.outputs.gcp_project_number }}
@@ -59,3 +61,22 @@ Outputs can be accessed in the usual way. For example, to print all the outputs:
 
 Note: there's no need to print the outputs for debugging in practice - the action prints them to `stdout` for this very
 purpose.
+
+## Main vs non-main branch deployments
+
+Some of the outputs' values depend on whether the action is run on the `main` branch or a non-`main` branch.
+
+### Main branch deployments
+
+- `revision_tag` is `<version>`
+- `image_version_tag` is `<branch_tag_kebab>-<version>`
+- `image_latest_tag` is `<branch_tag_kebab>-latest`
+
+### Non-main branch deployments
+
+The truncated branch name (first 12 characters) is used to ensure service names are short enough to be accepted by e.g.
+Cloud Run without having to restrict the length of branch names.
+
+- `revision_tag` is `pull-<truncated branch_tag_kebab>`
+- `image_version_tag` is `pull-<truncated branch_tag_kebab>`
+- `image_latest_tag` is `pull-<truncated branch_tag_kebab>-latest`
