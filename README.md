@@ -32,7 +32,6 @@ steps:
       gcp_region: europe-west1
       gcp_resource_affix: test
       gcp_service_name: my-test-service
-      gcp_environment: main
 ```
 
 Outputs can be accessed in the usual way. For example, to print all the outputs:
@@ -50,7 +49,8 @@ Outputs can be accessed in the usual way. For example, to print all the outputs:
     echo ${{ steps.get-deployment-info.outputs.version_slug }}
     echo ${{ steps.get-deployment-info.outputs.revision_tag }}
     echo ${{ steps.get-deployment-info.outputs.revision_tag_slug }}
-    echo ${{ steps.get-deployment-info.outputs.gcp_environment }}
+    echo ${{ steps.get-deployment-info.outputs.gcp_environment_kebab }}
+    echo ${{ steps.get-deployment-info.outputs.gcp_environment_screaming }}
     echo ${{ steps.get-deployment-info.outputs.gcp_project_name }}
     echo ${{ steps.get-deployment-info.outputs.gcp_project_number }}
     echo ${{ steps.get-deployment-info.outputs.gcp_region }}
@@ -71,6 +71,8 @@ Some of the outputs' values depend on whether the action is run on the `main` br
 - `revision_tag` is `<version>`
 - `image_version_tag` is `main-<version>`
 - `image_latest_tag` is `main-latest`
+- `gcp_environment_kebab` is `production`
+- `gcp_environment_screaming` is `PRODUCTION`
 
 ### Non-main branch deployments
 
@@ -80,3 +82,5 @@ Cloud Run without having to restrict the length of branch names.
 - `revision_tag` is `<truncated branch_tag_kebab>`
 - `image_version_tag` is `<truncated branch_tag_kebab>`
 - `image_latest_tag` is `<truncated branch_tag_kebab>-latest`
+- `gcp_environment_kebab` is `staging`
+- `gcp_environment_screaming` is `STAGING`
