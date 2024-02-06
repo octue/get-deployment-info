@@ -20,10 +20,6 @@ inputs:
   gcp_service_name:
     description: "The name of the service being deployed."
     required: true
-  gcp_environment:
-    description: "The environment in Google Cloud the service is being deployed into e.g. 'staging' or 'production'."
-    required: false
-    default: main
 
 outputs:
   branch_tag_kebab:
@@ -58,16 +54,16 @@ outputs:
     description: "A label to affix to the names of the resources created during deployment. This helps avoid confusion about what resources belong to what applications and aids cleanup of old resources."
   gcp_service_name:
     description: "The name of the service being deployed."
-  gcp_environment:
-    description: "The environment in Google Cloud the service is being deployed into e.g. 'staging' or 'production'."
-
+  gcp_environment_kebab:
+    description: "If the branch is 'main', this is 'production'; otherwise it's 'staging'."
+  gcp_environment_screaming:
+    description: "If the branch is 'main', this is 'PRODUCTION'; otherwise it's 'STAGING'."
 runs:
   using: "docker"
-  image: "docker://octue/get-deployment-info:0.2.3"
+  image: "docker://octue/get-deployment-info:0.3.0"
   args:
     - ${{ inputs.gcp_project_name }}
     - ${{ inputs.gcp_project_number }}
     - ${{ inputs.gcp_region }}
     - ${{ inputs.gcp_resource_affix }}
     - ${{ inputs.gcp_service_name }}
-    - ${{ inputs.gcp_environment }}

@@ -66,7 +66,6 @@ jobs:
           gcp_region: europe-west6
           gcp_resource_affix: my-affix
           gcp_service_name: my-test-service
-          gcp_environment: main
 
       - name: Get short SHA
         id: get-short-sha
