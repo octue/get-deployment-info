@@ -5,7 +5,6 @@ GCP_PROJECT_NUMBER=$2
 GCP_REGION=$3
 GCP_RESOURCE_AFFIX=$4
 GCP_SERVICE_NAME=$5
-GCP_ENVIRONMENT=$6
 
 # Get package version.
 if [ -f "pyproject.toml" ]; then VERSION=$(poetry version -s); \
@@ -23,7 +22,6 @@ echo "gcp_project_number=$GCP_PROJECT_NUMBER" >> $GITHUB_OUTPUT
 echo "gcp_region=$GCP_REGION" >> $GITHUB_OUTPUT
 echo "gcp_resource_affix=$GCP_RESOURCE_AFFIX" >> $GITHUB_OUTPUT
 echo "gcp_service_name=$GCP_SERVICE_NAME" >> $GITHUB_OUTPUT
-echo "gcp_environment=$GCP_ENVIRONMENT" >> $GITHUB_OUTPUT
 
 # Get slugified branch name, resource names, and docker image tags.
 SHORT_SHA="$(git config --global --add safe.directory /github/workspace && git rev-parse --short HEAD)"
@@ -39,10 +37,14 @@ if [ "$BRANCH_TAG_KEBAB" = "main" ]; then
   REVISION_TAG=$VERSION
   IMAGE_VERSION_TAG="$BRANCH_TAG_KEBAB-$REVISION_TAG"
   IMAGE_LATEST_TAG="$BRANCH_TAG_KEBAB-latest"
+  GCP_ENVIRONMENT=production >> $GITHUB_OUTPUT
+  GCP_ENVIRONMENT_SCREAMING=PRODUCTION >> $GITHUB_OUTPUT
 else
   REVISION_TAG=$(expr substr "$BRANCH_TAG_KEBAB" 1 12)
   IMAGE_VERSION_TAG="$REVISION_TAG"
   IMAGE_LATEST_TAG="$REVISION_TAG-latest"
+  GCP_ENVIRONMENT_KEBAB=staging >> $GITHUB_OUTPUT
+  GCP_ENVIRONMENT_SCREAMING=STAGING >> $GITHUB_OUTPUT
 fi
 
 echo "revision_tag=$REVISION_TAG" >> $GITHUB_OUTPUT
@@ -58,6 +60,7 @@ echo "image_version_artifact=$IMAGE_VERSION_ARTIFACT" >> $GITHUB_OUTPUT
 
 IMAGE_LATEST_ARTIFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_NAME/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_LATEST_TAG"
 echo "image_latest_artifact=$IMAGE_LATEST_ARTIFACT" >> $GITHUB_OUTPUT
+
 
 # Echo the outputs to stdout to aid debugging.
 echo ""
@@ -79,4 +82,5 @@ echo "- gcp_project_number: $GCP_PROJECT_NUMBER"
 echo "- gcp_region: $GCP_REGION"
 echo "- gcp_resource_affix: $GCP_RESOURCE_AFFIX"
 echo "- gcp_service_name: $GCP_SERVICE_NAME"
-echo "- gcp_environment: $GCP_ENVIRONMENT"
+echo "- gcp_environment_kebab: $GCP_ENVIRONMENT_KEBAB"
+echo "- gcp_environment_screaming: $GCP_ENVIRONMENT_SCREAMING"
