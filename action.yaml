@@ -58,6 +58,7 @@ outputs:
     description: "If the branch is 'main', this is 'production'; otherwise it's 'staging'."
   gcp_environment_screaming:
     description: "If the branch is 'main', this is 'PRODUCTION'; otherwise it's 'STAGING'."
+
 runs:
   using: "docker"
   image: "docker://octue/get-deployment-info:0.3.1"
