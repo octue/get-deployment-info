@@ -25,14 +25,13 @@ steps:
 
   - name: Get deployment info
     id: get-deployment-info
-    uses: octue/get-deployment-info@0.3.1
+    uses: octue/get-deployment-info@0.3.2
     with:
       gcp_project_name: test-project
       gcp_project_number: 1234
       gcp_region: europe-west1
       gcp_resource_affix: test
       gcp_service_name: my-test-service
-      gcp_environment: main
 ```
 
 Outputs can be accessed in the usual way. For example, to print all the outputs:
