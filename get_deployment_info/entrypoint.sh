@@ -40,7 +40,7 @@ if [ "$BRANCH_TAG_KEBAB" = "main" ]; then
   GCP_ENVIRONMENT_KEBAB="production"
   GCP_ENVIRONMENT_SCREAMING="PRODUCTION"
 else
-  REVISION_TAG=$(python -c "print('$BRANCH_TAG_KEBAB'.strip('-_')[:16])")
+  REVISION_TAG=$(python -c "print('$BRANCH_TAG_KEBAB'[:16].strip('-_'))")
   IMAGE_VERSION_TAG="$REVISION_TAG"
   IMAGE_LATEST_TAG="$REVISION_TAG-latest"
   GCP_ENVIRONMENT_KEBAB="staging"
