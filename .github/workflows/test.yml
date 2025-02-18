@@ -16,10 +16,10 @@ jobs:
       version_slug: ${{ steps.get-package-version.outputs.version_slug }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
 
       - name: Install poetry
-        uses: snok/install-poetry@v1.3.3
+        uses: snok/install-poetry@v1
 
       - name: Get package version
         id: get-package-version
@@ -32,16 +32,16 @@ jobs:
     needs: get-package-version
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
 
       - name: Log in to DockerHub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v5.1.0
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true
@@ -55,7 +55,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.1
+        uses: actions/checkout@v4
 
       - name: Get deployment info
         id: get-deployment-info
