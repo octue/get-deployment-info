@@ -63,6 +63,9 @@ echo "image_version_artifact=$IMAGE_VERSION_ARTIFACT" >> $GITHUB_OUTPUT
 IMAGE_LATEST_ARTIFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_NAME/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_LATEST_TAG"
 echo "image_latest_artifact=$IMAGE_LATEST_ARTIFACT" >> $GITHUB_OUTPUT
 
+IMAGE_DEFAULT_ARTIFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_NAME/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:default"
+echo "image_default_artifact=$IMAGE_DEFAULT_ARTIFACT" >> $GITHUB_OUTPUT
+
 
 # Echo the outputs to stdout to aid debugging.
 echo ""
@@ -74,6 +77,7 @@ echo "- image_latest_artifact: $IMAGE_LATEST_ARTIFACT"
 echo "- image_latest_tag: $IMAGE_LATEST_TAG"
 echo "- image_version_artifact: $IMAGE_VERSION_ARTIFACT"
 echo "- image_version_tag: $IMAGE_VERSION_TAG"
+echo "- image_default_artifact: $IMAGE_DEFAULT_ARTIFACT"
 echo "- short_sha: $SHORT_SHA"
 echo "- version: $VERSION"
 echo "- version_slug: $VERSION_SLUG"
