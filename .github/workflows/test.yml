@@ -104,6 +104,12 @@ jobs:
           expected: refs-pull-${{ github.event.number }}-mer
           actual: ${{ steps.get-deployment-info.outputs.image_version_tag }}
 
+      - name: Check `image_default_artifact`
+        uses: nick-fields/assert-action@v1
+        with:
+          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:default
+          actual: ${{ steps.get-deployment-info.outputs.image_default_artifact }}
+
       - name: Check `short_sha`
         uses: nick-fields/assert-action@v1
         with:
