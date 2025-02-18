@@ -1,5 +1,5 @@
 name: "Get deployment information"
-description: "Get the information required to build and deploy an Octue service."
+description: "Get the information required to build and deploy an Octue Twined service."
 author: "cortadocodes"
 branding:
   icon: cloud
@@ -29,11 +29,13 @@ outputs:
   image_latest_artifact:
     description: "The artifact URI for the latest docker image."
   image_latest_tag:
-    description: "The tag of the latest docker image."
+    description: "The tag of the latest docker image for the service."
   image_version_artifact:
     description: "The artifact URI for the docker image for the version to deploy."
   image_version_tag:
     description: "The tag of the docker image for the version."
+  image_default_artifact:
+    description: "The artifact URI for the default docker image for the service."
   short_sha:
     description: "The short SHA of the HEAD commit being deployed."
   version:
