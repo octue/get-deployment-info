@@ -18,14 +18,14 @@ Add the action as a step in your workflow:
 ```yaml
 steps:
   - name: Checkout
-    uses: actions/checkout@v3
+    uses: actions/checkout@v4
 
   - name: Install poetry
-    uses: snok/install-poetry@v1.3.3
+    uses: snok/install-poetry@v1
 
   - name: Get deployment info
     id: get-deployment-info
-    uses: octue/get-deployment-info@0.3.4
+    uses: octue/get-deployment-info@0.4.0
     with:
       gcp_project_name: test-project
       gcp_project_number: 1234
@@ -45,6 +45,7 @@ Outputs can be accessed in the usual way. For example, to print all the outputs:
     echo ${{ steps.get-deployment-info.outputs.image_latest_tag }}
     echo ${{ steps.get-deployment-info.outputs.image_version_artifact }}
     echo ${{ steps.get-deployment-info.outputs.image_version_tag }}
+    echo ${{ steps.get-deployment-info.outputs.image_default_artifact }}
     echo ${{ steps.get-deployment-info.outputs.short_sha }}
     echo ${{ steps.get-deployment-info.outputs.version_slug }}
     echo ${{ steps.get-deployment-info.outputs.revision_tag }}
