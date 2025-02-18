@@ -4,7 +4,7 @@ version = "0.4.0"
 description = "A Github Action that gets the information required to build and deploy an Octue service."
 authors = ["Marcus Lugg <marcus@octue.com>"]
 readme = "README.md"
-packages = [{include = "get_deployment_info"}]
+packages = []
 
 [tool.poetry.dependencies]
 python = "^3.10"
