@@ -1,6 +1,8 @@
 #!/bin/sh -l
+ARTIFACT_REGISTRY_REPOSITORY=octue-twined-services
+
 # Get inputs
-GCP_PROJECT_NAME=$1
+GCP_PROJECT_ID=$1
 GCP_PROJECT_NUMBER=$2
 GCP_REGION=$3
 GCP_RESOURCE_AFFIX=$4
@@ -17,7 +19,7 @@ VERSION_SLUG=$(echo $VERSION | tr . -)
 echo "version_slug=$VERSION_SLUG" >> $GITHUB_OUTPUT
 
 # Get GCP variables.
-echo "gcp_project_name=$GCP_PROJECT_NAME" >> $GITHUB_OUTPUT
+echo "gcp_project_name=$GCP_PROJECT_ID" >> $GITHUB_OUTPUT
 echo "gcp_project_number=$GCP_PROJECT_NUMBER" >> $GITHUB_OUTPUT
 echo "gcp_region=$GCP_REGION" >> $GITHUB_OUTPUT
 echo "gcp_resource_affix=$GCP_RESOURCE_AFFIX" >> $GITHUB_OUTPUT
@@ -57,13 +59,13 @@ REVISION_TAG_SLUG=$(echo $REVISION_TAG | tr . -)
 echo "revision_tag_slug=$REVISION_TAG_SLUG" >> $GITHUB_OUTPUT
 
 # Set image artifact addresses.
-IMAGE_VERSION_ARTIFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_NAME/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_VERSION_TAG"
+IMAGE_VERSION_ARTIFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_ID/$ARTIFACT_REGISTRY_REPOSITORY/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_VERSION_TAG"
 echo "image_version_artifact=$IMAGE_VERSION_ARTIFACT" >> $GITHUB_OUTPUT
 
-IMAGE_LATEST_ARTIFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_NAME/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_LATEST_TAG"
+IMAGE_LATEST_ARTIFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_ID/$ARTIFACT_REGISTRY_REPOSITORY/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:$IMAGE_LATEST_TAG"
 echo "image_latest_artifact=$IMAGE_LATEST_ARTIFACT" >> $GITHUB_OUTPUT
 
-IMAGE_DEFAULT_ARTIFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_NAME/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:default"
+IMAGE_DEFAULT_ARTIFACT="$GCP_REGION-docker.pkg.dev/$GCP_PROJECT_ID/$ARTIFACT_REGISTRY_REPOSITORY/$GCP_RESOURCE_AFFIX/$GCP_SERVICE_NAME:default"
 echo "image_default_artifact=$IMAGE_DEFAULT_ARTIFACT" >> $GITHUB_OUTPUT
 
 
@@ -83,7 +85,7 @@ echo "- version: $VERSION"
 echo "- version_slug: $VERSION_SLUG"
 echo "- revision_tag: $REVISION_TAG"
 echo "- revision_tag_slug: $REVISION_TAG_SLUG"
-echo "- gcp_project_name: $GCP_PROJECT_NAME"
+echo "- gcp_project_name: $GCP_PROJECT_ID"
 echo "- gcp_project_number: $GCP_PROJECT_NUMBER"
 echo "- gcp_region: $GCP_REGION"
 echo "- gcp_resource_affix: $GCP_RESOURCE_AFFIX"

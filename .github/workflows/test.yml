@@ -83,7 +83,7 @@ jobs:
       - name: Check `image_latest_artifact`
         uses: nick-fields/assert-action@v1
         with:
-          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:refs-pull-${{ github.event.number }}-mer-latest
+          expected: europe-west6-docker.pkg.dev/my-test-project/octue-twined-services/my-affix/my-test-service:refs-pull-${{ github.event.number }}-mer-latest
           actual: ${{ steps.get-deployment-info.outputs.image_latest_artifact }}
 
       - name: Check `image_latest_tag`
@@ -95,7 +95,7 @@ jobs:
       - name: Check `image_version_artifact`
         uses: nick-fields/assert-action@v1
         with:
-          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:refs-pull-${{ github.event.number }}-mer
+          expected: europe-west6-docker.pkg.dev/my-test-project/octue-twined-services/my-affix/my-test-service:refs-pull-${{ github.event.number }}-mer
           actual: ${{ steps.get-deployment-info.outputs.image_version_artifact }}
 
       - name: Check `image_version_tag`
@@ -107,7 +107,7 @@ jobs:
       - name: Check `image_default_artifact`
         uses: nick-fields/assert-action@v1
         with:
-          expected: europe-west6-docker.pkg.dev/my-test-project/my-affix/my-test-service:default
+          expected: europe-west6-docker.pkg.dev/my-test-project/octue-twined-services/my-affix/my-test-service:default
           actual: ${{ steps.get-deployment-info.outputs.image_default_artifact }}
 
       - name: Check `short_sha`

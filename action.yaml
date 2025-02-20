@@ -63,7 +63,7 @@ outputs:
 
 runs:
   using: "docker"
-  image: "docker://octue/get-deployment-info:0.4.0"
+  image: "docker://octue/get-deployment-info:0.4.1"
   args:
     - ${{ inputs.gcp_project_name }}
     - ${{ inputs.gcp_project_number }}
