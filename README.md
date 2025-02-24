@@ -70,8 +70,8 @@ Some of the outputs' values depend on whether the action is run on the `main` br
 ### Main branch deployments
 
 - `revision_tag` is `<version>`
-- `image_version_tag` is `main-<version>`
-- `image_latest_tag` is `main-latest`
+- `image_version_tag` is `<version>`
+- `image_latest_tag` is `latest`
 - `gcp_environment_kebab` is `production`
 - `gcp_environment_screaming` is `PRODUCTION`
 
